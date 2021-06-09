@@ -1,0 +1,11 @@
+version: '3'
+services:
+  gcloud_service:
+    build: .
+    volumes:
+      - ./work/:/root
+      - ./config:/root/.config/gcloud
+    environment:
+      - CLOUDSDK_CONFIG=/root/.config/gcloud
+      - PROJECT_ID=nyproject
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/google_api/key.json
