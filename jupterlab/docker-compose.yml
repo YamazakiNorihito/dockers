@@ -1,0 +1,21 @@
+version: "3"
+services:
+  datascience_notebook:
+    # https://jupyter-docker-stacks.readthedocs.io/en/latest/index.html documentわかりやすい
+    # わかりやすいJupyterNotebook docker images 構成
+    # https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#image-relationships
+    # https://hub.docker.com/r/jupyter/datascience-notebook/:latest
+    image: jupyter/datascience-notebook:latest
+    # ポートの設定("ホスト：コンテナ")
+    ports:
+      - "10000:8888"  # http://localhost:10000
+    # 環境変数の設定
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    # ボリューム(データの永続化の場所)の設定(ホスト:コンテナ)
+    # ホスト内のworkディレクトリとコンテナ内の/home/jovyan/workディレクトリが紐づいているイメージ
+    volumes:
+      - ./volume/work:/home/jovyan/work
+    # 最後にjupyterLabに接続するためのコマンドを実行する。
+    # https://jupyter-docker-stacks.readthedocs.io/en/latest/using/common.html#docker-options
+    command: start-notebook.sh --NotebookApp.token=''
