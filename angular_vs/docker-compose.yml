@@ -1,0 +1,13 @@
+#https://www.trifields.jp/how-to-build-an-angular-development-environment-with-docker-and-vs-code-remote-containers-4627
+version: '3'
+
+services:
+  node :
+    build : .
+    ports :
+      - "4200:4200"
+    volumes: 
+       - "./volume:/projects"
+       
+volumes:
+  volume:
