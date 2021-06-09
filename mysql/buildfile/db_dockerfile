@@ -1,0 +1,11 @@
+
+# https://github.com/docker-library/mysql/blob/d72fdef749b3b6c140e4b0d6a87f12737ed3554a/8.0/Dockerfile.debian
+# https://qiita.com/TAMIYAN/items/ed9ec892d91e5af962c6
+FROM mysql:8.0
+
+# RUNコマンド確認
+RUN ls
+
+
+
+

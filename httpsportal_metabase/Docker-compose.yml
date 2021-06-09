@@ -1,0 +1,17 @@
+https-portal:
+  image: steveltn/https-portal:1
+  ports:
+    - '80:80'
+    - '443:443'
+  links:
+    - metabase
+  restart: always
+  environment:
+    STAGE: local
+    DOMAINS: 'localhost -> http://metabase:3000'
+metabase:
+  image: metabase/metabase
+  volumes:
+    - ~/metabase-data:/metabase-data
+  environment:
+    - MB_DB_FILE=/metabase-data/metabase.db

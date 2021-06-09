@@ -1,0 +1,8 @@
+version: '3'
+services:
+  recapp:
+    build: .
+    volumes:
+      - ./volumes/myapp:/usr/src/myapp
+      - ./volumes/workdir:/work
+    tty: true

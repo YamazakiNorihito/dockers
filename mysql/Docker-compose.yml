@@ -1,0 +1,18 @@
+version : '3'
+
+
+service :
+  # https://hub.docker.com/_/mysql
+  mysql :
+    build: :
+      context: ./buildfile
+      dockerfile: db_dockerfile
+    env_file: 
+        - ./dockerEnvfile/mysql.env
+
+    volumes: # 永続化
+      - ./volumes/mysql/etc:/etc/mysql # 設定
+      - ./volume/mysql/var/lib:/var/etc/mysql # データ
+     # [UnixおよびUnixライクなシステムで読み取られるオプションファイル]
+     # (https://dev.mysql.com/doc/refman/8.0/en/option-files.html)
+     
