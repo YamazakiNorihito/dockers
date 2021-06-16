@@ -1,0 +1,14 @@
+#https://docs.microsoft.com/ja-jp/dotnet/core/install/linux-debian
+version: '3'
+
+services: 
+    app :
+        container_name : jenkins_docker
+        build: .
+        volumes: 
+            - './volumes/jenkins:/var/jenkins_home'
+            - './volumes/dotnet:/usr/share/dotnet'
+            - './volumes/work:/home/work'
+        ports: 
+            - '8017:8080'
+            
