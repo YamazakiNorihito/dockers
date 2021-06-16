@@ -37,8 +37,8 @@ docker-compose exec jenkins_docker bash
 ``` 
 
 ☆設定
-![設定](.\img\1_setting_build.PNG)
+![設定](\img\1_setting_build.PNG)
 
 ☆実行
-![実行](.\img\2_setting_build_done.PNG)
+![実行](\img\2_setting_build_done.PNG)
 
