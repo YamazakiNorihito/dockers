@@ -16,8 +16,10 @@ namespace EmptyApi
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
+
             Configuration = configuration;
         }
 
@@ -26,12 +28,28 @@ namespace EmptyApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EmptyApi", Version = "v1" });
             });
+
+            var hosts = Configuration.GetSection("Cors:AllowedOrigins")
+                        .Get<List<string>>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", p =>
+                {
+                    p.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithOrigins(hosts.ToArray())
+                    .AllowCredentials();
+                });
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,13 +65,19 @@ namespace EmptyApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            // «’Ç‰Á«
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
