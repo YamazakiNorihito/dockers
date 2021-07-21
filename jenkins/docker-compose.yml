@@ -1,5 +1,9 @@
 #https://docs.microsoft.com/ja-jp/dotnet/core/install/linux-debian
 version: '3'
+#id
+#pw:nikkei1234
+
+
 
 services: 
     app :

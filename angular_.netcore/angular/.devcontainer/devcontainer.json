@@ -23,7 +23,15 @@
 	"settings": {},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": []
+	"extensions": [
+		"johnpapa.angular-essentials",
+		"natewallace.angular2-inline",
+		"jakethashi.vscode-angular2-emmet",
+		"pmneo.tsimporter",
+		"vismalietuva.vscode-angular-support",
+		"ghaschel.vscode-angular-html",
+
+	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
