@@ -1,0 +1,101 @@
+@startuml RSS
+package main.RssReader {
+    enum CommandMode {
+        +ONE
+        +TWO
+        +THREE
+    }
+    enum CommandOpt {
+        +I("-i"),
+        +C("-c"),
+        +O("-o");
+
+        -final String text;
+        +CommandOpt(final String text)
+        +String toString()
+    }
+}
+package main {
+    class RssReader {
+        -string name
+        +{static} void main()
+        #{static} String CommandValidation(List<String> cliOptionList)
+        #{static} boolean isValidURL(String urlString)
+        
+    }
+
+    abstract class AbsRssBase {
+        #{static} string _titletag = "title:"
+        #{static} string _bodytag = "body:"
+        #void EditString(String value,\
+                        Boolean isCutter,\
+                        int maxlength,\
+                        boolean isConvert,\
+                        HashMap<String, String> replaces)
+    }
+    class FileRssReader {
+        +void exec(ConfigRss config,\
+                    String filePath, \
+                    Boolean isCutter, \
+                    boolean isConvert)  throws IOException
+    }
+    class UrlRssReader {
+        +void exec(ConfigRss config, \
+                    String url, \
+                    String filePath, \
+                    Boolean isCutter, \
+                    boolean isConvert)
+
+        #File CreateFile(String filePath) throws IOException
+    }
+}
+
+package config {
+    class ConfigLoad {
+        ~ConfigRss _resultConfig
+        ~InputStream inputStream
+        +ConfigRss getPropValues() throws IOException 
+    }
+}
+
+package Rssad {
+    class Rssad {
+        +List<RssItemModel> getRssItemModelList(String url) throws Exception
+    }
+}
+
+package model {
+    class RssItemModel {
+        -int _title
+        -int _description
+        -int _link
+        +RssItemModel(String title, String description, String link)
+        +String getTitle()
+        +String getDescription()
+        +String getLink()
+    }
+
+    class ConfigRss {
+        +int maxTitleLength
+        +int maxBodyLength
+        +HashMap<String, String> Replaces
+    }
+}
+
+AbsRssBase <|-- FileRssReader
+AbsRssBase <|-- UrlRssReader
+main ..> FileRssReader
+main ..> UrlRssReader
+main -- CommandMode
+main -- CommandOpt
+main -- ConfigLoad
+main -- ConfigRss
+FileRssReader -- ConfigRss
+UrlRssReader -- ConfigRss
+FileRssReader ..> Rssad
+UrlRssReader ..> Rssad
+FileRssReader -- RssItemModel
+UrlRssReader -- RssItemModel
+ConfigLoad ..> ConfigRss
+Rssad ..> RssItemModel
+@enduml
